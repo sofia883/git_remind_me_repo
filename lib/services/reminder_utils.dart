@@ -383,8 +383,14 @@ class ReminderUtils {
 
           int notificationId = DateTime.now().millisecondsSinceEpoch ~/ 1000;
 
-          NotificationService.showNotification(
-              notificationId, title, notificationBody);
+          NotificationService.scheduleNotification(
+              reminderDateTime,
+              notificationId,
+              title,
+              notificationBody,
+              payload,
+              repeatOption,
+              actionId);
 
           NotificationService.scheduleNotification(
               reminderDateTime,

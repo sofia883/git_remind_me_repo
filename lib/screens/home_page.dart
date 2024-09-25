@@ -288,26 +288,25 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime scheduledTime = DateTime.now()
+        .add(Duration(seconds: 10)); // Ensure this is in the future
+
+    int notificationId = DateTime.now().millisecondsSinceEpoch ~/
+        1000; // Unique ID for the notification
+    String title = 'Reminder Title';
+    String body = ' not solved yetdddd? is it';
+    String payload = jsonEncode({'key': 'value'}); // Pass any data
+    String repeatOption =
+        'Every 5 seconds'; // Options: 'None', 'Every 5 seconds', etc.
+    String actionId = "cancel"; // Action ID for canceling the notification
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
             icon: Icon(Icons.cancel, color: Colors.white),
             onPressed: () async {
-              DateTime scheduledTime = DateTime.now()
-                  .add(Duration(seconds: 10)); // Ensure this is in the future
               print(
                   'Scheduled notification at: $scheduledTime'); // For debugging
-
-              int notificationId = DateTime.now().millisecondsSinceEpoch ~/
-                  1000; // Unique ID for the notification
-              String title = 'Reminder Title';
-              String body = 'solved or not.';
-              String payload = jsonEncode({'key': 'value'}); // Pass any data
-              String repeatOption =
-                  'Every 5 seconds'; // Options: 'None', 'Every 5 seconds', etc.
-              String actionId =
-                  "cancel"; // Action ID for canceling the notification
 
               await NotificationService.scheduleNotification(
                 scheduledTime,
@@ -320,6 +319,13 @@ class _HomePageState extends State<HomePage> {
               );
             },
             tooltip: 'Cancel Upcoming Reminder Notification',
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Cancel the notification with the specified ID
+              NotificationService.cancelNotificationAndAlarm(notificationId);
+            },
+            child: Text('Cancel Notification'),
           ),
           Container(
             margin: EdgeInsets.only(right: 0),
