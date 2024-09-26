@@ -32,6 +32,7 @@ class NotificationService {
             await cancelNotificationAndAlarm(response.id);
           }
         } else {
+          await cancelNotificationAndAlarm(response.id);
           logger.d('Notification body tapped, ID: ${response.id}');
           // Do nothing when the notification body is tapped
         }
